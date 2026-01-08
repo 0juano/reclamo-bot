@@ -1,0 +1,20 @@
+{
+  "nombre": "Municipio de Malvinas Argentinas",
+  "provincia": "Buenos Aires",
+  "email": "",
+  "telefono": "4660-9000",
+  "web": "https://www.malvinasargentinas.gob.ar/contacto",
+  "mapa_centro": [-34.4983, -58.6978],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "limpieza",
+    "mediación urbana"
+  ],
+  "notas": "Sin email directo de reclamos encontrado. Defensa consumidor online disponible. Línea 109 Protección Ciudadana.",
+  "horarios": "Lun-Vie 8-14hs",
+  "verificado": false,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

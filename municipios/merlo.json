@@ -1,0 +1,21 @@
+{
+  "nombre": "Municipalidad de Merlo",
+  "provincia": "Buenos Aires",
+  "email": "",
+  "telefono": "(0220) 483-0954",
+  "web": "https://www.merlo.gob.ar/contacto/",
+  "mapa_centro": [-34.6712, -58.7276],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "limpieza",
+    "poda",
+    "servicios"
+  ],
+  "notas": "Sin email directo. Contacto vía redes sociales y delegaciones. Secretaría Delegaciones: (0220) 485-1421.",
+  "horarios": "Lun-Vie 8-14hs",
+  "verificado": false,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

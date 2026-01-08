@@ -1,0 +1,25 @@
+{
+  "nombre": "Municipio de Vicente López",
+  "provincia": "Buenos Aires",
+  "email": "",
+  "telefono": "147",
+  "web": "https://www.vicentelopez.gov.ar/contacto/",
+  "mapa_centro": [-34.5253, -58.4718],
+  "mapa_zoom": 13,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "limpieza",
+    "arbolado",
+    "tránsito"
+  ],
+  "notas": "Línea 147 Lun-Vie 8-16hs. Denuncias anónimas: 0800-888-8456 (VILO). App MiBarrio disponible.",
+  "horarios": "Lun-Vie 8-16hs",
+  "metodo_alternativo": {
+    "nombre": "App MiBarrio",
+    "tipo": "app"
+  },
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

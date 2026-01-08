@@ -1,0 +1,26 @@
+{
+  "nombre": "Municipio de General Pueyrredón",
+  "provincia": "Buenos Aires",
+  "email": "",
+  "telefono": "147",
+  "web": "https://147.mardelplata.gob.ar",
+  "mapa_centro": [-38.0055, -57.5426],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "limpieza",
+    "arbolado",
+    "tránsito"
+  ],
+  "notas": "Mar del Plata. Sistema 147 online en 147.mardelplata.gob.ar. Sin email directo encontrado.",
+  "horarios": "24hs (línea 147)",
+  "metodo_alternativo": {
+    "nombre": "Portal 147 MdP",
+    "tipo": "web",
+    "url": "https://147.mardelplata.gob.ar"
+  },
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

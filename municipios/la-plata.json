@@ -1,0 +1,27 @@
+{
+  "nombre": "Municipalidad de La Plata",
+  "provincia": "Buenos Aires",
+  "email": "",
+  "telefono": "147",
+  "web": "https://www.laplata.app",
+  "mapa_centro": [-34.9205, -57.9536],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "luminarias",
+    "poda",
+    "recolección de residuos",
+    "ruidos molestos",
+    "barrido",
+    "espacios públicos"
+  ],
+  "notas": "Sistema SUAV con número de seguimiento. Requiere registro en laplata.app. Línea 147 o 0800-999-5959.",
+  "horarios": "24hs (línea 147)",
+  "metodo_alternativo": {
+    "nombre": "Sistema SUAV",
+    "tipo": "web",
+    "url": "https://www.laplata.app"
+  },
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

@@ -1,0 +1,22 @@
+{
+  "nombre": "Municipio de La Matanza",
+  "provincia": "Buenos Aires",
+  "email": "matanzaresponde@lamatanza.gov.ar",
+  "telefono": "147",
+  "web": "https://www.lamatanza.gov.ar/147",
+  "mapa_centro": [-34.7703, -58.6250],
+  "mapa_zoom": 11,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "higiene urbana",
+    "recolección de residuos",
+    "poda",
+    "limpieza de sumideros"
+  ],
+  "notas": "Sistema Matanza Responde 24/7. Emails alternativos: espaciopublico@lamatanza.gov.ar para espacio público.",
+  "horarios": "24hs (línea 147)",
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

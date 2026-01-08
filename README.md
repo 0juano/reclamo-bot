@@ -12,12 +12,30 @@ Fork argentino de [Karen Bot](https://gist.github.com/levelsio/b4467fd2fb63bc537
 4. La IA genera una carta formal
 5. Se envía por email al municipio
 
-## Municipios disponibles
+## Municipios disponibles (20)
 
-| Municipio | Provincia | Email | Estado |
-|-----------|-----------|-------|--------|
+| Municipio | Provincia | Contacto | Estado |
+|-----------|-----------|----------|--------|
+| Buenos Aires Ciudad | CABA | 147 / app BA 147 | ⚠️ Sin email |
+| La Matanza | Buenos Aires | matanzaresponde@lamatanza.gov.ar | ✅ Verificado |
+| Córdoba | Córdoba | 0800-888-0404 / WhatsApp | ✅ Verificado |
+| Rosario | Santa Fe | WhatsApp 3415440147 | ✅ Verificado |
+| La Plata | Buenos Aires | 147 / laplata.app | ⚠️ Sin email |
+| Lomas de Zamora | Buenos Aires | reclamoscav@lomasdezamora.gov.ar | ✅ Verificado |
+| General Pueyrredón | Buenos Aires | 147 / portal web | ⚠️ Sin email |
+| Quilmes | Buenos Aires | WhatsApp QuiBOT | ✅ Verificado |
+| Salta | Salta | 147 / App Salta Activa | ✅ Verificado |
+| San Miguel de Tucumán | Tucumán | 147 / App Ciudad SMT | ✅ Verificado |
+| Almirante Brown | Buenos Aires | 0800-222-7696 | ✅ Verificado |
+| Merlo | Buenos Aires | (0220) 483-0954 | ⚠️ Sin email |
+| Moreno | Buenos Aires | portal web reclamos | ✅ Verificado |
+| Santa Fe | Santa Fe | informes@santafeciudad.gov.ar | ✅ Verificado |
+| Lanús | Buenos Aires | centrodeatencion@lanus.com.ar | ✅ Verificado |
+| Florencio Varela | Buenos Aires | contacto@varela.gob.ar | ✅ Verificado |
+| San Isidro | Buenos Aires | 147 / portal web | ✅ Verificado |
 | Tigre | Buenos Aires | sirve@tigre.gob.ar | ✅ Verificado |
-| Buenos Aires Ciudad | CABA | (usar app BA 147) | ⚠️ Sin email directo |
+| Malvinas Argentinas | Buenos Aires | 4660-9000 | ⚠️ Sin email |
+| Vicente López | Buenos Aires | 147 / App MiBarrio | ✅ Verificado |
 
 ## Instalación
 

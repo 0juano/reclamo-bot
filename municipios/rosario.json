@@ -1,0 +1,28 @@
+{
+  "nombre": "Municipalidad de Rosario",
+  "provincia": "Santa Fe",
+  "email": "",
+  "telefono": "147",
+  "whatsapp": "3415440147",
+  "web": "https://www.rosario.gob.ar/inicio/consultas-y-reclamos",
+  "mapa_centro": [-32.9442, -60.6505],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "limpieza",
+    "arbolado",
+    "tránsito",
+    "transporte"
+  ],
+  "notas": "MuniBot vía WhatsApp 3415440147 (24hs). Formulario web disponible. Twitter: @RosarioResponde",
+  "horarios": "24hs (línea 147 y WhatsApp)",
+  "metodo_alternativo": {
+    "nombre": "MuniBot WhatsApp",
+    "tipo": "whatsapp",
+    "numero": "3415440147"
+  },
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

@@ -1,0 +1,22 @@
+{
+  "nombre": "Municipalidad de Córdoba",
+  "provincia": "Córdoba",
+  "email": "appciudadana@cordoba.gov.ar",
+  "telefono": "0800-888-0404",
+  "web": "https://cordoba.gob.ar/atencion-al-vecino/",
+  "mapa_centro": [-31.4201, -64.1888],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "arbolado",
+    "limpieza",
+    "tránsito",
+    "transporte"
+  ],
+  "notas": "App Ciudadana disponible. WhatsApp: 351-610-0444 (24hs). También línea 147.",
+  "horarios": "Lun-Vie 8-20hs, WhatsApp 24hs",
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

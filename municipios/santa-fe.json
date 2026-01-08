@@ -1,0 +1,21 @@
+{
+  "nombre": "Municipalidad de Santa Fe",
+  "provincia": "Santa Fe",
+  "email": "informes@santafeciudad.gov.ar",
+  "telefono": "0800-777-5000",
+  "web": "https://santafeciudad.gov.ar/contacto/",
+  "mapa_centro": [-31.6333, -60.7000],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "limpieza",
+    "arbolado",
+    "tránsito"
+  ],
+  "notas": "Línea 0800 24hs los 365 días. También vía redes sociales oficiales.",
+  "horarios": "24hs",
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

@@ -1,0 +1,25 @@
+{
+  "nombre": "Municipio de Moreno",
+  "provincia": "Buenos Aires",
+  "email": "",
+  "telefono": "0237-4669200",
+  "web": "https://moreno.gob.ar/atencion-ciudadano-reclamos-web.php",
+  "mapa_centro": [-34.6534, -58.7918],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "alumbrado",
+    "recolección de residuos",
+    "retiro de ramas",
+    "poste electrificado"
+  ],
+  "notas": "Sistema de reclamos web con fotos. Requiere DNI. Sin email directo encontrado.",
+  "horarios": "Lun-Vie 8-16hs",
+  "metodo_alternativo": {
+    "nombre": "Reclamos Web",
+    "tipo": "web",
+    "url": "https://moreno.gob.ar/atencion-ciudadano-reclamos-web.php"
+  },
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

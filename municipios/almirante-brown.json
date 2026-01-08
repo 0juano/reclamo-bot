@@ -1,0 +1,21 @@
+{
+  "nombre": "Municipio de Almirante Brown",
+  "provincia": "Buenos Aires",
+  "email": "defensaconsumidor@brown.gob.ar",
+  "telefono": "0800-222-7696",
+  "web": "https://www.brown.gob.ar",
+  "mapa_centro": [-34.8328, -58.3874],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "limpieza",
+    "poda",
+    "ambiente"
+  ],
+  "notas": "0800-BROWN (222-7696) de 8-20hs. Sistema Gestión Brown en web. WhatsApp Defensa Consumidor: 11-6960-2391.",
+  "horarios": "8-20hs",
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

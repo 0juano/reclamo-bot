@@ -1,0 +1,26 @@
+{
+  "nombre": "Municipio de San Isidro",
+  "provincia": "Buenos Aires",
+  "email": "",
+  "telefono": "147",
+  "web": "https://www.sanisidro.gob.ar/consultasyreclamos",
+  "mapa_centro": [-34.4708, -58.5276],
+  "mapa_zoom": 13,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "baldíos",
+    "ruidos molestos",
+    "ocupación vía pública"
+  ],
+  "notas": "Línea 147 24hs los 365 días. Sistema web con seguimiento por email. App SI24 disponible.",
+  "horarios": "24hs (línea 147)",
+  "metodo_alternativo": {
+    "nombre": "Portal Reclamos",
+    "tipo": "web",
+    "url": "https://www.sanisidro.gob.ar/consultasyreclamos"
+  },
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

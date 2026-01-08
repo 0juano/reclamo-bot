@@ -1,0 +1,20 @@
+{
+  "nombre": "Municipio de Lanús",
+  "provincia": "Buenos Aires",
+  "email": "centrodeatencion@lanus.com.ar",
+  "telefono": "0800-333-5268",
+  "web": "https://www.lanus.gob.ar",
+  "mapa_centro": [-34.7066, -58.3924],
+  "mapa_zoom": 13,
+  "tipos_reclamo": [
+    "luminarias",
+    "sumideros",
+    "limpieza",
+    "barrenderos"
+  ],
+  "notas": "0800-333-LANÚS (5268) de 8-18hs. Sistema Lanús en Línea para seguimiento. Centro de Atención Vecinal en Av. H. Yrigoyen 3863.",
+  "horarios": "8-18hs",
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

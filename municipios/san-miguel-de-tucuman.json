@@ -1,0 +1,25 @@
+{
+  "nombre": "Municipalidad de San Miguel de Tucumán",
+  "provincia": "Tucumán",
+  "email": "",
+  "telefono": "147",
+  "web": "https://smt.gob.ar/",
+  "mapa_centro": [-26.8241, -65.2226],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "arbolado y poda",
+    "basurales",
+    "luminarias",
+    "transporte"
+  ],
+  "notas": "App Ciudad SMT con geolocalización. WhatsApp por tema: Bacheo 381-223-0569, Basurales 381-223-0568, Arbolado 381-223-0567.",
+  "horarios": "Lun-Vie 8-16hs (147), WhatsApp 8-20hs",
+  "metodo_alternativo": {
+    "nombre": "App Ciudad SMT",
+    "tipo": "app"
+  },
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

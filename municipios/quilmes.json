@@ -1,0 +1,27 @@
+{
+  "nombre": "Municipio de Quilmes",
+  "provincia": "Buenos Aires",
+  "email": "",
+  "telefono": "0800-999-5656",
+  "whatsapp": "1144934483",
+  "web": "https://reclamos.quilmes.gov.ar/Solicitud/",
+  "mapa_centro": [-34.7241, -58.2605],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "limpieza",
+    "poda",
+    "recolección de residuos"
+  ],
+  "notas": "QuiBOT asistente virtual vía WhatsApp 11-4493-4483. Sistema SUAV online. Línea anónima: 0800-999-3760.",
+  "horarios": "24hs (WhatsApp QuiBOT)",
+  "metodo_alternativo": {
+    "nombre": "QuiBOT WhatsApp",
+    "tipo": "whatsapp",
+    "numero": "1144934483"
+  },
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}

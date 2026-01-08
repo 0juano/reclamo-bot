@@ -1,0 +1,26 @@
+{
+  "nombre": "Municipalidad de Salta",
+  "provincia": "Salta",
+  "email": "consumidor.municipal@municipalidadsalta.gob.ar",
+  "telefono": "147",
+  "whatsapp": "3872542826",
+  "web": "https://municipalidadsalta.gob.ar/atencion-ciudadana/",
+  "mapa_centro": [-24.7821, -65.4232],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "microbasurales",
+    "luminarias",
+    "seguridad vial",
+    "higiene urbana",
+    "habilitaciones comerciales"
+  ],
+  "notas": "App Salta Activa para reportes geolocalizados. WhatsApp Ambiente: 387-15410105. Líneas 147 y 105.",
+  "horarios": "Lun-Vie 8-13hs y 14-18hs",
+  "metodo_alternativo": {
+    "nombre": "App Salta Activa",
+    "tipo": "app"
+  },
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@0juano"
+}
