@@ -243,8 +243,8 @@ PRs bienvenidos! Especialmente para:
 
 ## Créditos
 
-- Idea original: [@levelsio](https://twitter.com/levelsio)
-- Adaptación Argentina: [@juanote](https://twitter.com/juanote)
+- Idea original: [@levelsio](https://x.com/levelsio)
+- Adaptación Argentina: [@0juano](https://x.com/0juano)
 
 ## Licencia
 
