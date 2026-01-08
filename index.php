@@ -613,9 +613,9 @@ $defaultZoom = $municipioActual['mapa_zoom'] ?? 12;
     <footer>
         <p>
             Basado en <a href="https://github.com/levelsio" target="_blank">Karen Bot de @levelsio</a> |
-            <a href="https://github.com/0juano/reclamo-bot" target="_blank">Contribuí en GitHub</a>
+            <a href="https://github.com/0juano/reclamo-bot" target="_blank">Contribuí en GitHub</a> |
+            <a href="https://github.com/0juano/reclamo-bot#agregar-municipio" target="_blank">Agregá tu municipio</a>
         </p>
-        <p>¿Falta tu municipio? <a href="https://github.com/0juano/reclamo-bot#agregar-municipio" target="_blank">Agregalo!</a></p>
     </footer>
 
     <script>
