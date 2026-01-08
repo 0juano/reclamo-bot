@@ -19,8 +19,16 @@ define('KEY_TO_ACCESS_THE_SCRIPT', 'cambiar_esto');
 // Resend API (https://resend.com - gratis hasta 3000 emails/mes)
 define('RESEND_API_KEY', 'tu_api_key_de_resend');
 
-// OpenAI API
+// LLM Provider: 'openrouter' (recomendado, más barato) o 'openai'
+define('LLM_PROVIDER', 'openrouter');
+
+// OpenRouter API (https://openrouter.ai - más barato, muchos modelos)
+define('OPENROUTER_API_KEY', 'tu_api_key_de_openrouter');
+define('OPENROUTER_MODEL', 'anthropic/claude-3.5-haiku');  // o 'openai/gpt-4o-mini', 'google/gemini-flash-1.5'
+
+// OpenAI API (alternativa)
 define('OPENAI_API_KEY', 'tu_api_key_de_openai');
+define('OPENAI_MODEL', 'gpt-4o-mini');
 
 // Tus datos
 define('YOUR_NAME', 'Tu Nombre Completo');
@@ -127,16 +135,34 @@ Firmá siempre la carta con:
         $userPrompt .= "\n\nNOTA: Se van a adjuntar fotografías como evidencia. Mencionalo en la carta (ej: 'Adjunto fotografías que documentan la situación descripta.')";
     }
 
+    // Configurar según el provider elegido
+    if (LLM_PROVIDER === 'openrouter') {
+        $apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
+        $apiKey = OPENROUTER_API_KEY;
+        $model = OPENROUTER_MODEL;
+        $headers = [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+            'HTTP-Referer: https://github.com/0juano/reclamo-bot',
+            'X-Title: Reclamo Bot Argentina'
+        ];
+    } else {
+        $apiUrl = 'https://api.openai.com/v1/chat/completions';
+        $apiKey = OPENAI_API_KEY;
+        $model = OPENAI_MODEL;
+        $headers = [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey
+        ];
+    }
+
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/chat/completions');
+    curl_setopt($ch, CURLOPT_URL, $apiUrl);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Authorization: Bearer ' . OPENAI_API_KEY
-    ]);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'gpt-4o-mini',
+        'model' => $model,
         'messages' => [
             ['role' => 'system', 'content' => $systemPrompt],
             ['role' => 'user', 'content' => $userPrompt]
@@ -151,7 +177,8 @@ Firmá siempre la carta con:
     curl_close($ch);
 
     if ($httpCode !== 200) {
-        echo json_encode(['success' => false, 'error' => 'Error al conectar con OpenAI API']);
+        $providerName = LLM_PROVIDER === 'openrouter' ? 'OpenRouter' : 'OpenAI';
+        echo json_encode(['success' => false, 'error' => "Error al conectar con {$providerName} API"]);
         exit;
     }
 

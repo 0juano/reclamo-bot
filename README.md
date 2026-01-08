@@ -26,23 +26,42 @@ Fork argentino de [Karen Bot](https://gist.github.com/levelsio/b4467fd2fb63bc537
 - PHP 7.4+ con GD
 - Servidor web (Nginx/Apache)
 - Cuenta en [Resend](https://resend.com) (gratis hasta 3000 emails/mes)
-- API key de [OpenAI](https://platform.openai.com)
+- API key de [OpenRouter](https://openrouter.ai) (recomendado) o [OpenAI](https://platform.openai.com)
 
 ### Pasos
 
 1. Cloná el repo:
 ```bash
-git clone https://github.com/TU_USUARIO/reclamo-bot.git
+git clone https://github.com/0juano/reclamo-bot.git
 ```
 
 2. Configurá las variables en `index.php`:
 ```php
 define('KEY_TO_ACCESS_THE_SCRIPT', 'tu_clave_secreta');
 define('RESEND_API_KEY', 'tu_api_key_de_resend');
-define('OPENAI_API_KEY', 'tu_api_key_de_openai');
+
+// Elegí tu provider de IA (openrouter es más barato)
+define('LLM_PROVIDER', 'openrouter');  // o 'openai'
+
+// Si usás OpenRouter (recomendado)
+define('OPENROUTER_API_KEY', 'tu_api_key');
+define('OPENROUTER_MODEL', 'anthropic/claude-3.5-haiku');
+
+// Si usás OpenAI
+define('OPENAI_API_KEY', 'tu_api_key');
+define('OPENAI_MODEL', 'gpt-4o-mini');
+
 define('YOUR_NAME', 'Tu Nombre');
 define('FROM_YOUR_EMAIL', 'tu@email.com');
 ```
+
+### Modelos recomendados (OpenRouter)
+
+| Modelo | Costo aprox. | Notas |
+|--------|--------------|-------|
+| `anthropic/claude-3.5-haiku` | ~$0.001/carta | Rápido, buena calidad |
+| `openai/gpt-4o-mini` | ~$0.001/carta | Buena alternativa |
+| `google/gemini-flash-1.5` | ~$0.0005/carta | Más barato |
 
 3. Configurá tu dominio en Resend para poder enviar emails
 
@@ -119,7 +138,7 @@ reclamo-bot/
 
 - **Backend**: PHP
 - **Mapa**: Leaflet.js + OpenStreetMap
-- **IA**: OpenAI GPT-4o-mini
+- **IA**: OpenRouter (Claude, GPT, Gemini) o OpenAI directo
 - **Email**: Resend
 
 ## Contribuir
