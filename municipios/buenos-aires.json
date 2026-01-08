@@ -1,0 +1,27 @@
+{
+  "nombre": "Gobierno de la Ciudad de Buenos Aires",
+  "provincia": "CABA",
+  "email": "",
+  "telefono": "147",
+  "web": "https://buenosaires.gob.ar/tramites/denuncia-de-irregularidades-en-la-publica",
+  "mapa_centro": [-34.6037, -58.3816],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "arbolado",
+    "limpieza",
+    "tránsito",
+    "servicios públicos"
+  ],
+  "notas": "CABA usa sistema TAD con login miBA. Para reclamos simples, llamar al 147 o usar BA 147 app.",
+  "metodo_alternativo": {
+    "nombre": "BA 147",
+    "tipo": "app",
+    "url": "https://buenosaires.gob.ar/aplicacionesmoviles/ba-147"
+  },
+  "horarios": "24hs (línea 147)",
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@juanote"
+}

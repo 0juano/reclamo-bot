@@ -1,0 +1,22 @@
+{
+  "nombre": "Municipalidad de Tigre",
+  "provincia": "Buenos Aires",
+  "email": "sirve@tigre.gob.ar",
+  "telefono": "0800-122-8447",
+  "web": "https://www.tigre.gob.ar",
+  "mapa_centro": [-34.4260, -58.5796],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "poda de árboles",
+    "limpieza vía pública",
+    "demarcación vial",
+    "desagües"
+  ],
+  "notas": "Sistema Tigre SIRVE. Cada reclamo recibe número de seguimiento con plazo de resolución.",
+  "horarios": "Lun-Vie 8-20hs, Sáb 9-13hs",
+  "verificado": true,
+  "ultima_actualizacion": "2025-01-08",
+  "contribuido_por": "@juanote"
+}

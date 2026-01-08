@@ -1,0 +1,20 @@
+{
+  "nombre": "Municipalidad de [NOMBRE]",
+  "provincia": "[PROVINCIA]",
+  "email": "[EMAIL_DE_RECLAMOS]",
+  "telefono": "[TELEFONO_OPCIONAL]",
+  "web": "[URL_SITIO_OFICIAL]",
+  "mapa_centro": [-00.0000, -00.0000],
+  "mapa_zoom": 12,
+  "tipos_reclamo": [
+    "bacheo",
+    "luminarias",
+    "poda",
+    "limpieza"
+  ],
+  "notas": "[NOTAS_OPCIONALES_SOBRE_EL_PROCESO]",
+  "horarios": "[HORARIOS_ATENCION]",
+  "verificado": false,
+  "ultima_actualizacion": "YYYY-MM-DD",
+  "contribuido_por": "@[TU_USUARIO_GITHUB]"
+}
