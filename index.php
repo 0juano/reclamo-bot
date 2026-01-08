@@ -9,7 +9,7 @@
 // 3. Agregá una ruta en Nginx: /reclamo -> index.php
 // 4. Accedé con /reclamo?key=tu_clave
 //
-// Repo: https://github.com/TU_USUARIO/reclamo-bot
+// Repo: https://github.com/0juano/reclamo-bot
 
 // <configuración>
 
@@ -613,9 +613,9 @@ $defaultZoom = $municipioActual['mapa_zoom'] ?? 12;
     <footer>
         <p>
             Basado en <a href="https://github.com/levelsio" target="_blank">Karen Bot de @levelsio</a> |
-            <a href="https://github.com/TU_USUARIO/reclamo-bot" target="_blank">Contribuí en GitHub</a>
+            <a href="https://github.com/0juano/reclamo-bot" target="_blank">Contribuí en GitHub</a>
         </p>
-        <p>¿Falta tu municipio? <a href="https://github.com/TU_USUARIO/reclamo-bot#agregar-municipio" target="_blank">Agregalo!</a></p>
+        <p>¿Falta tu municipio? <a href="https://github.com/0juano/reclamo-bot#agregar-municipio" target="_blank">Agregalo!</a></p>
     </footer>
 
     <script>
