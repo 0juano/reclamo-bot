@@ -53,7 +53,21 @@ Fork argentino de [Karen Bot](https://gist.github.com/levelsio/b4467fd2fb63bc537
 git clone https://github.com/0juano/reclamo-bot.git
 ```
 
-2. Configurá las variables en `index.php`:
+2. Configurá las variables de entorno (recomendado) o editá `index.php`:
+
+**Opción A: Variables de entorno (recomendado)**
+```bash
+export RECLAMO_ACCESS_KEY="tu_clave_secreta"
+export RESEND_API_KEY="tu_api_key_de_resend"
+export LLM_PROVIDER="openrouter"  # o 'openai'
+export OPENROUTER_API_KEY="tu_api_key"
+export OPENROUTER_MODEL="anthropic/claude-3.5-haiku"
+export RECLAMO_YOUR_NAME="Tu Nombre"
+export RECLAMO_FROM_EMAIL="tu@email.com"
+export RECLAMO_CC_EMAILS="copia@email.com"  # Opcional, separar con comas
+```
+
+**Opción B: Editar index.php directamente**
 ```php
 define('KEY_TO_ACCESS_THE_SCRIPT', 'tu_clave_secreta');
 define('RESEND_API_KEY', 'tu_api_key_de_resend');
@@ -99,6 +113,25 @@ location /reclamo {
 
 5. Accedé a `tudominio.com/reclamo?key=tu_clave_secreta`
 
+## Seguridad y validación
+
+### Archivos adjuntos
+- **Formatos permitidos**: JPG, PNG, GIF, WebP
+- **Tamaño máximo**: 1MB por imagen (se comprime automáticamente)
+- **Cantidad máxima**: 20 archivos
+- **Validación**: Extensión + verificación real de imagen con `getimagesize()`
+
+### Límites de entrada
+- **Descripción del reclamo**: máximo 10.000 caracteres
+- **Dirección**: máximo 500 caracteres
+- **Coordenadas**: latitud -90 a 90, longitud -180 a 180
+
+### Protecciones implementadas
+- Autenticación con comparación timing-safe (`hash_equals`)
+- Prevención XSS con `htmlspecialchars()` y `json_encode()`
+- Validación de email contra whitelist de municipios configurados
+- Variables de entorno para secrets (no hardcodeados)
+
 ## Agregar municipio
 
 ¿Tu municipio no está? ¡Agregalo!
@@ -140,24 +173,64 @@ Podés obtener las coordenadas desde Google Maps:
 2. Click derecho → "¿Qué hay aquí?"
 3. Copiá las coordenadas (ej: -34.4708, -58.5276)
 
+## Testing
+
+Correr los tests:
+```bash
+# Instalar dependencias
+composer install
+
+# Correr tests
+composer test
+
+# O con Docker (sin PHP local)
+docker run --rm -v $(pwd):/app -w /app composer:latest install
+docker run --rm -v $(pwd):/app -w /app php:8.2-cli vendor/bin/phpunit
+```
+
+### Cobertura de tests (26 tests, 83+ assertions)
+
+| Función | Tests | Qué valida |
+|---------|-------|------------|
+| `getMunicipios()` | 4 | Carga JSON, ordena alfabéticamente, maneja errores |
+| `extractSubject()` | 5 | Extrae "Asunto:" o trunca a 60 chars |
+| `parseCcEmails()` | 4 | Parsea emails separados por coma |
+| `formatAttachmentMessage()` | 3 | Pluralización correcta (foto/fotos) |
+| `validateCoordinates()` | 6 | Rangos válidos lat/lng |
+| `resizeImage()` | 4 | Compresión y escalado de imágenes |
+
 ## Estructura del proyecto
 
 ```
 reclamo-bot/
 ├── index.php           # Aplicación principal
+├── src/
+│   └── functions.php   # Funciones reutilizables
+├── tests/
+│   └── ReclamoBotTest.php
 ├── municipios/
 │   ├── _template.json  # Template para nuevos municipios
 │   ├── tigre.json
 │   └── buenos-aires.json
+├── composer.json
+├── phpunit.xml
 └── README.md
 ```
 
 ## Stack
 
-- **Backend**: PHP
+- **Backend**: PHP 7.4+
 - **Mapa**: Leaflet.js + OpenStreetMap
 - **IA**: OpenRouter (Claude, GPT, Gemini) o OpenAI directo
 - **Email**: Resend
+- **Tests**: PHPUnit 10
+
+## Manejo de errores
+
+- **Logs**: Errores se loguean en PHP error log (no se muestran al usuario)
+- **API failures**: Errores de LLM/Resend se loguean con contexto
+- **Validación**: Inputs inválidos retornan mensajes claros en español
+- **Red**: Fallos de cURL se detectan y reportan separado de errores HTTP
 
 ## Contribuir
 

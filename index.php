@@ -14,36 +14,38 @@
 // <configuración>
 
 // Clave de acceso (agregá ?key=tu_clave a la URL)
-define('KEY_TO_ACCESS_THE_SCRIPT', 'cambiar_esto');
+define('KEY_TO_ACCESS_THE_SCRIPT', getenv('RECLAMO_ACCESS_KEY') ?: 'cambiar_esto');
 
 // Resend API (https://resend.com - gratis hasta 3000 emails/mes)
-define('RESEND_API_KEY', 'tu_api_key_de_resend');
+define('RESEND_API_KEY', getenv('RESEND_API_KEY') ?: '');
 
 // LLM Provider: 'openrouter' (recomendado, más barato) o 'openai'
-define('LLM_PROVIDER', 'openrouter');
+define('LLM_PROVIDER', getenv('LLM_PROVIDER') ?: 'openrouter');
 
 // OpenRouter API (https://openrouter.ai - más barato, muchos modelos)
-define('OPENROUTER_API_KEY', 'tu_api_key_de_openrouter');
-define('OPENROUTER_MODEL', 'anthropic/claude-3.5-haiku');  // o 'openai/gpt-4o-mini', 'google/gemini-flash-1.5'
+define('OPENROUTER_API_KEY', getenv('OPENROUTER_API_KEY') ?: '');
+define('OPENROUTER_MODEL', getenv('OPENROUTER_MODEL') ?: 'anthropic/claude-3.5-haiku');  // o 'openai/gpt-4o-mini', 'google/gemini-flash-1.5'
 
 // OpenAI API (alternativa)
-define('OPENAI_API_KEY', 'tu_api_key_de_openai');
-define('OPENAI_MODEL', 'gpt-4o-mini');
+define('OPENAI_API_KEY', getenv('OPENAI_API_KEY') ?: '');
+define('OPENAI_MODEL', getenv('OPENAI_MODEL') ?: 'gpt-4o-mini');
 
 // Tus datos
-define('YOUR_NAME', 'Tu Nombre Completo');
-define('FROM_YOUR_EMAIL', 'tu@email.com');  // Debe estar verificado en Resend
-define('CC_EMAILS', '');  // Emails en copia, separados por coma (opcional)
+define('YOUR_NAME', getenv('RECLAMO_YOUR_NAME') ?: 'Tu Nombre Completo');
+define('FROM_YOUR_EMAIL', getenv('RECLAMO_FROM_EMAIL') ?: '');  // Debe estar verificado en Resend
+define('CC_EMAILS', getenv('RECLAMO_CC_EMAILS') ?: '');  // Emails en copia, separados por coma (opcional)
 
 // </configuración>
 
-error_reporting(0);
+error_reporting(E_ALL);
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
 ini_set('upload_max_filesize', '50M');
 ini_set('post_max_size', '50M');
 ini_set('max_file_uploads', '20');
 
 // Verificar clave de acceso
-if (($_GET['key'] ?? '') !== KEY_TO_ACCESS_THE_SCRIPT) {
+if (!hash_equals(KEY_TO_ACCESS_THE_SCRIPT, $_GET['key'] ?? '')) {
     http_response_code(404);
     exit('No encontrado');
 }
@@ -51,17 +53,77 @@ if (($_GET['key'] ?? '') !== KEY_TO_ACCESS_THE_SCRIPT) {
 // Cargar municipios disponibles
 function getMunicipios() {
     $municipios = [];
-    $files = glob(__DIR__ . '/municipios/*.json');
+    $files = glob(__DIR__ . '/municipios/*.json') ?: [];
     foreach ($files as $file) {
         $data = json_decode(file_get_contents($file), true);
-        if ($data) {
+        if ($data !== null && json_last_error() === JSON_ERROR_NONE) {
             $data['_file'] = basename($file, '.json');
             $municipios[] = $data;
         }
     }
     // Ordenar por nombre
-    usort($municipios, fn($a, $b) => strcmp($a['nombre'], $b['nombre']));
+    usort($municipios, fn($a, $b) => strcmp($a['nombre'] ?? '', $b['nombre'] ?? ''));
     return $municipios;
+}
+
+function resizeImage($filePath, $mimeType, $maxSize) {
+    switch ($mimeType) {
+        case 'image/jpeg': $img = imagecreatefromjpeg($filePath); break;
+        case 'image/png': $img = imagecreatefrompng($filePath); break;
+        case 'image/gif': $img = imagecreatefromgif($filePath); break;
+        case 'image/webp': $img = imagecreatefromwebp($filePath); break;
+        default: return file_get_contents($filePath);
+    }
+
+    if (!$img) return file_get_contents($filePath);
+
+    $width = imagesx($img);
+    $height = imagesy($img);
+    $quality = 85;
+
+    do {
+        ob_start();
+        imagejpeg($img, null, $quality);
+        $data = ob_get_clean();
+        $quality -= 10;
+    } while (strlen($data) > $maxSize && $quality > 20);
+
+    if (strlen($data) > $maxSize) {
+        $scale = sqrt($maxSize / strlen($data));
+        $newWidth = (int)($width * $scale);
+        $newHeight = (int)($height * $scale);
+        $resized = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($resized, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+        imagedestroy($img);
+        $img = $resized;
+        ob_start();
+        imagejpeg($img, null, 70);
+        $data = ob_get_clean();
+    }
+
+    imagedestroy($img);
+    return $data;
+}
+
+function makeApiRequest($url, $headers, $payload, $timeout = 30) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    return [
+        'response' => $response,
+        'httpCode' => $httpCode,
+        'error' => $curlError
+    ];
 }
 
 $municipios = getMunicipios();
@@ -80,12 +142,20 @@ if (isset($_GET['m']) || isset($_POST['municipio'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'expand') {
     header('Content-Type: application/json');
 
-    $complaint = trim($_POST['complaint'] ?? '');
+    $complaint = mb_substr(trim($_POST['complaint'] ?? ''), 0, 10000);
     $hasAttachments = isset($_POST['hasAttachments']) && $_POST['hasAttachments'] === 'true';
-    $address = trim($_POST['address'] ?? '');
+    $address = mb_substr(trim($_POST['address'] ?? ''), 0, 500);
     $lat = trim($_POST['lat'] ?? '');
     $lng = trim($_POST['lng'] ?? '');
     $municipioNombre = trim($_POST['municipio_nombre'] ?? 'la Municipalidad');
+
+    // Validate coordinates
+    if (!empty($lat) && (!is_numeric($lat) || $lat < -90 || $lat > 90)) {
+        $lat = '';
+    }
+    if (!empty($lng) && (!is_numeric($lng) || $lng < -180 || $lng > 180)) {
+        $lng = '';
+    }
 
     if (empty($complaint)) {
         echo json_encode(['success' => false, 'error' => 'El texto del reclamo es requerido']);
@@ -173,10 +243,20 @@ Firmá siempre la carta con:
     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
     $response = curl_exec($ch);
+
+    if ($response === false) {
+        $curlError = curl_error($ch);
+        curl_close($ch);
+        error_log("Reclamo Bot - cURL error: " . $curlError);
+        echo json_encode(['success' => false, 'error' => 'Error de conexión']);
+        exit;
+    }
+
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
     if ($httpCode !== 200) {
+        error_log("Reclamo Bot - LLM API error: HTTP $httpCode");
         $providerName = LLM_PROVIDER === 'openrouter' ? 'OpenRouter' : 'OpenAI';
         echo json_encode(['success' => false, 'error' => "Error al conectar con {$providerName} API"]);
         exit;
@@ -186,7 +266,8 @@ Firmá siempre la carta con:
     if (isset($data['choices'][0]['message']['content'])) {
         echo json_encode(['success' => true, 'expanded' => $data['choices'][0]['message']['content']]);
     } else {
-        echo json_encode(['success' => false, 'error' => 'Respuesta inválida de OpenAI']);
+        error_log("Reclamo Bot - Invalid LLM response: " . substr($response, 0, 500));
+        echo json_encode(['success' => false, 'error' => 'Respuesta inválida del servicio LLM']);
     }
     exit;
 }
@@ -203,17 +284,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     if (preg_match('/Asunto:\s*(.+)/i', $complaint, $matches)) {
         $subject = trim($matches[1]);
     } else {
-        $subject = mb_substr(preg_replace('/\s+/', ' ', $complaint), 0, 60);
-        if (mb_strlen($complaint) > 60) $subject .= '...';
+        $cleanedComplaint = preg_replace('/\s+/', ' ', $complaint);
+        $subject = mb_substr($cleanedComplaint, 0, 60);
+        if (mb_strlen($cleanedComplaint) > 60) $subject .= '...';
     }
 
     if (empty($complaint)) {
-        echo json_encode(['success' => false, 'message' => 'Por favor completá el reclamo.']);
+        echo json_encode(['success' => false, 'error' => 'Por favor completá el reclamo.']);
+        exit;
+    }
+
+    // Validate municipio email is from our config (not user-supplied)
+    $validEmails = [];
+    foreach (getMunicipios() as $m) {
+        if (!empty($m['email'])) {
+            $validEmails[] = strtolower($m['email']);
+        }
+    }
+    if (!in_array(strtolower($municipioEmail), $validEmails)) {
+        echo json_encode(['success' => false, 'error' => 'Email de municipio no válido.']);
         exit;
     }
 
     if (empty($municipioEmail)) {
-        echo json_encode(['success' => false, 'message' => 'No hay email configurado para este municipio.']);
+        echo json_encode(['success' => false, 'error' => 'No hay email configurado para este municipio.']);
         exit;
     }
 
@@ -226,6 +320,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             if ($_FILES['attachments']['error'][$i] === UPLOAD_ERR_OK) {
                 $tmpName = $_FILES['attachments']['tmp_name'][$i];
                 $fileName = $_FILES['attachments']['name'][$i];
+
+                // Validate extension
+                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+                $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+                if (!in_array($extension, $allowedExtensions)) {
+                    continue; // Skip non-image files
+                }
+
+                // Verify it's actually an image
+                $imageInfo = @getimagesize($tmpName);
+                if ($imageInfo === false) {
+                    continue; // Skip files that aren't valid images
+                }
+
                 $mimeType = mime_content_type($tmpName);
 
                 $maxSize = 1024 * 1024; // 1MB
@@ -251,49 +359,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
     }
 
-    function resizeImage($filePath, $mimeType, $maxSize) {
-        switch ($mimeType) {
-            case 'image/jpeg': $img = imagecreatefromjpeg($filePath); break;
-            case 'image/png': $img = imagecreatefrompng($filePath); break;
-            case 'image/gif': $img = imagecreatefromgif($filePath); break;
-            case 'image/webp': $img = imagecreatefromwebp($filePath); break;
-            default: return file_get_contents($filePath);
-        }
-
-        if (!$img) return file_get_contents($filePath);
-
-        $width = imagesx($img);
-        $height = imagesy($img);
-        $quality = 85;
-
-        do {
-            ob_start();
-            imagejpeg($img, null, $quality);
-            $data = ob_get_clean();
-            $quality -= 10;
-        } while (strlen($data) > $maxSize && $quality > 20);
-
-        if (strlen($data) > $maxSize) {
-            $scale = sqrt($maxSize / strlen($data));
-            $newWidth = (int)($width * $scale);
-            $newHeight = (int)($height * $scale);
-            $resized = imagecreatetruecolor($newWidth, $newHeight);
-            imagecopyresampled($resized, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-            imagedestroy($img);
-            $img = $resized;
-            ob_start();
-            imagejpeg($img, null, 70);
-            $data = ob_get_clean();
-        }
-
-        imagedestroy($img);
-        return $data;
-    }
-
     // Verificar si hubo error con adjuntos
     $filesUploaded = isset($_FILES['attachments']) && !empty($_FILES['attachments']['name'][0]);
     if ($filesUploaded && empty($attachments)) {
-        echo json_encode(['success' => false, 'message' => 'Error al procesar los adjuntos. Por favor intentá de nuevo.']);
+        echo json_encode(['success' => false, 'error' => 'Error al procesar los adjuntos. Por favor intentá de nuevo.']);
         exit;
     }
 
@@ -325,6 +394,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
     $response = curl_exec($ch);
+
+    if ($response === false) {
+        $curlError = curl_error($ch);
+        curl_close($ch);
+        error_log("Reclamo Bot - cURL error: " . $curlError);
+        echo json_encode(['success' => false, 'error' => 'Error de conexión']);
+        exit;
+    }
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
@@ -338,8 +415,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
         echo json_encode(['success' => true, 'message' => $msg]);
     } else {
+        error_log("Reclamo Bot - Resend API error: HTTP $httpCode - " . substr($response, 0, 500));
         $errorMsg = $responseData['message'] ?? 'Error desconocido';
-        echo json_encode(['success' => false, 'message' => 'Error al enviar: ' . $errorMsg]);
+        echo json_encode(['success' => false, 'error' => 'Error al enviar: ' . $errorMsg]);
     }
     exit;
 }
