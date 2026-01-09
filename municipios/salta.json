@@ -14,10 +14,11 @@
     "higiene urbana",
     "habilitaciones comerciales"
   ],
-  "notas": "App Salta Activa para reportes geolocalizados. WhatsApp Ambiente: 387-15410105. Líneas 147 y 105.",
+  "notas": "Email solo para Defensa del Consumidor. Reclamos vía pública: App Ciudadana o tel 4160900. WhatsApp Ambiente: 387-15410105.",
   "horarios": "Lun-Vie 8-13hs y 14-18hs",
   "metodo_alternativo": {
-    "nombre": "App Salta Activa",
+    "nombre": "App Ciudadana",
+    "url": "https://play.google.com/store/apps/details?id=ar.gob.municipalidadsalta.ciudadana",
     "tipo": "app"
   },
   "verificado": true,
